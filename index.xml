@@ -205,29 +205,6 @@ their own projects at a small scale.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</title>
-      <link>http://jesseszwedko.com/publication/optimizing-energy/</link>
-      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/publication/optimizing-energy/</guid>
-      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
-widespread use of sensors, wireless connectivity and the wide variety of
-end-user mobile devices. Typically, such event detection is carried out by
-a data stream management system executing continuous queries (CQs), registered
-by the users. In this paper, we consider the situation where the results of the
-CQs, which are in the form of individual data streams, are disseminated to the
-users&amp;rsquo; hand-held, battery-operated devices over a shared broadcast medium. In
-order to reduce the overall energy consumption of the mobile devices, we
-propose Bose*, a power-aware query operator placement algorithm that determines
-which part of a CQ plan should be executed at the data stream management system
-and which part should be executed at the mobile device. Bose*&amp;rsquo;s effectiveness
-in reducing energy consumption, as well as response time under specific
-conditions, is evaluated using simulation, driven by parameters measured on
-real mobile devices.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Visualization of Energy Consumption of Continuous Query Processing with Mobile Clients</title>
       <link>http://jesseszwedko.com/publication/visualizing-energy/</link>
       <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
@@ -255,6 +232,29 @@ different scenarios by customizing the parameters of the query workloads (e.g.,
 changing the selectivities and projectivities of the operators) or the client&amp;rsquo;s
 profile (e.g., power consumed per unit of time of processing) and examine the
 impact.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</title>
+      <link>http://jesseszwedko.com/publication/optimizing-energy/</link>
+      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/publication/optimizing-energy/</guid>
+      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
+widespread use of sensors, wireless connectivity and the wide variety of
+end-user mobile devices. Typically, such event detection is carried out by
+a data stream management system executing continuous queries (CQs), registered
+by the users. In this paper, we consider the situation where the results of the
+CQs, which are in the form of individual data streams, are disseminated to the
+users&amp;rsquo; hand-held, battery-operated devices over a shared broadcast medium. In
+order to reduce the overall energy consumption of the mobile devices, we
+propose Bose*, a power-aware query operator placement algorithm that determines
+which part of a CQ plan should be executed at the data stream management system
+and which part should be executed at the mobile device. Bose*&amp;rsquo;s effectiveness
+in reducing energy consumption, as well as response time under specific
+conditions, is evaluated using simulation, driven by parameters measured on
+real mobile devices.&lt;/p&gt;
 </description>
     </item>
     
