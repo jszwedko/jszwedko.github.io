@@ -36,12 +36,12 @@
     <style>
 *{padding:0;margin:0}body,html{font-size:1em;line-height:1.65em;font-family:"Open Sans",sans-serif;font-weight:300;color:#444}html{height:100%}body{padding:2em 2.5em 1em 20em}header{border-right:1px #eee solid;padding:2em;position:fixed;top:0;left:0;height:100%;width:13.5em}#content{display:block;width:100%}footer{padding:1em 0 2.5em;font-size:.8em;line-height:1.5em;color:#888}article{border-bottom:.1em #eee solid;padding-bottom:1.7em;max-width:56em}h4,h5,h6,hr,p{margin-top:.9em;margin-bottom:.9em}h1,h2,h3,h4,h5,h6{font-family:"Bree Serif",serif;font-weight:400!important}h1{font-size:2.5em;line-height:1.1em;margin-top:.6em;margin-bottom:.6em}h2{font-size:1.9em;line-height:1.2em;margin-top:.7em;margin-bottom:.7em}h3{font-size:1.4em;line-height:1.3em;margin-top:.8em;margin-bottom:.8em}h4{font-size:1.3em}h5{font-size:1.2em}h6{font-size:1.1em}iframe,img{max-width:100%}a{font-weight:700;text-decoration:none;color:#5cc265}a:hover{text-decoration:underline}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:400!important}strong{font-weight:700}blockquote{border-left:.4em solid #eee;padding-left:1.2em;font-size:1.3em}hr{border:0;height:1px;background:#eee}ol,ul{margin-left:3em}code{font-size:1.4em;background:#eee}pre{font-size:.8em;line-height:2em;background:#eee;padding:1em;word-break:break-all;word-wrap:break-word;white-space:pre;white-space:-moz-pre-wrap;white-space:pre-wrap}input{font-size:1em;padding:.3em}header h1{font-size:1.9em;margin-top:.8em;margin-bottom:.6em}header h1 a{color:#444}header h1 a:hover{text-decoration:none}header #logo img{width:9em;height:9em;border-radius:4.5em;-moz-border-radius:4.5em;-webkit-border-radius:4.5em;border:none}#follow-icons{font-size:.7em;margin-top:-.7em;margin-bottom:1.5em}#follow-icons a{color:#ccc}#follow-icons span{vertical-align:top;margin-left:-.15em;margin-right:-.15em}#follow-icons span .fa-stack-1x{font-size:1.05em;line-height:1.9em}header h6{margin-top:.5em}article span.post-stamp{color:#888}h1.post-title{margin-top:.35em;margin-bottom:.6em}h3.post-title{margin-top:.4em;padding-bottom:.9em;border-bottom:1px solid #eee;font-size:1.2em;color:#444}.post-title .feature-star{font-size:.9em}.feature-star,.separator,.taglist{color:#ccc}.taglist a{background-color:#ccc;color:#fff;display:inline-block;line-height:1.5em;padding:.3em .6em;vertical-align:20%;font-size:.5em;font-family:"Open Sans",sans-serif;font-weight:700!important;text-transform:uppercase;letter-spacing:.05em;border-radius:.25em;-moz-border-radius:.25em;-webkit-border-radius:.25em}#social-bar{margin-top:1.5em;background-color:#eee;padding:.5em}#comments{margin-top:.15em;padding-bottom:.2em;border-bottom:1px solid #eee}.pagination{margin-bottom:1em}footer a{font-weight:300;color:#888;text-decoration:underline}footer a:hover{color:#444;text-decoration:none}@media only screen and (min-width:1281px){body,html{font-size:1.1em}}@media only screen and (max-width:800px){body{padding:0}header{border-right:none;border-bottom:1px #eee solid;position:relative;height:auto;width:auto;text-align:center;padding-bottom:1em}#content{margin-left:0;padding:2em 2em 1em;width:auto}footer{padding:0 2.5em 2em}}@media only screen and (max-width:320px){#content,header{padding:1.2em 1.2em .6em}footer{padding:0 1.5em 1.2em}ol,ul{margin-left:2em}}
 </style>
+    <link href="/assets/site.css" rel="stylesheet" type="text/css">
     </head>
     <body>
       <header id="header">
         <a id="logo" href="/"><img src="https://www.gravatar.com/avatar/3e3a63b9ce04e1cd241d8660248e5412.png?s=200" alt="Jesse Szwedko" /></a>
         <h1><a href="/">Jesse Szwedko</a></h1>
-        <p></p>
 
         <div id="follow-icons">
 	<a href="http://facebook.com/jesse.szwedko" rel="me"><i class="fa fa-facebook-square fa-2x"></i></a>
@@ -51,8 +51,11 @@
 	<a href="/index.xml" rel="me"><i class="fa fa-rss-square fa-2x"></i></a>
 </div>
 
-        
-  <h6><a href="/about/"> About </a></h6>
+        <p class="site-description">
+  Blogging about Golang, continuous deployment, and whatever else I happen to
+  be working on.
+</p>
+
 
   <h6><a href="/post/"> Posts </a></h6>
 
@@ -66,8 +69,6 @@
       </header>
 
 		<main id="content">
-      
-
       
           <section id="" class="post">
 	<h3 class="post-title">
@@ -218,24 +219,24 @@ automation, and deployment automation using git, Travis CI, and capistrano.</p>
       
           <section id="" class="publication">
 	<h3 class="post-title">
-		<a href="http://jesseszwedko.com/publication/optimizing-energy/">Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</a>
-		<span class="separator"> &middot; </span>
-		<time datetime="2011-06-01T00:00:00Z">
-      Jun 2011
-    </time>
-    <p>Complex event detection over data streams has become ubiquitous through the widespread use of sensors, wireless connectivity and the wide variety of end-user mobile devices. Typically, such event detection is carried out by a data stream management system executing continuous queries (CQs), registered by the users. In this paper, we consider the situation where the results of the CQs, which are in the form of individual data streams, are disseminated to the users&rsquo; hand-held, battery-operated devices over a shared broadcast medium.<a href="/publication/optimizing-energy/">Read More…</a></p>
-	</h3>
-</section>
-
-      
-          <section id="" class="publication">
-	<h3 class="post-title">
 		<a href="http://jesseszwedko.com/publication/visualizing-energy/">Visualization of Energy Consumption of Continuous Query Processing with Mobile Clients</a>
 		<span class="separator"> &middot; </span>
 		<time datetime="2011-06-01T00:00:00Z">
       Jun 2011
     </time>
     <p>Complex event detection over data streams has become ubiquitous through the widespread use of sensors, wireless connectivity and the wide variety of end-user mobile devices. Typically, event detection is carried out by a central server executing continuous queries. In this demonstration, we focus on the case where users with mobile devices submit continuous queries (for event detection) to a data stream management server which disseminates the results to the users over a shared broadcast medium.<a href="/publication/visualizing-energy/">Read More…</a></p>
+	</h3>
+</section>
+
+      
+          <section id="" class="publication">
+	<h3 class="post-title">
+		<a href="http://jesseszwedko.com/publication/optimizing-energy/">Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</a>
+		<span class="separator"> &middot; </span>
+		<time datetime="2011-06-01T00:00:00Z">
+      Jun 2011
+    </time>
+    <p>Complex event detection over data streams has become ubiquitous through the widespread use of sensors, wireless connectivity and the wide variety of end-user mobile devices. Typically, such event detection is carried out by a data stream management system executing continuous queries (CQs), registered by the users. In this paper, we consider the situation where the results of the CQs, which are in the form of individual data streams, are disseminated to the users&rsquo; hand-held, battery-operated devices over a shared broadcast medium.<a href="/publication/optimizing-energy/">Read More…</a></p>
 	</h3>
 </section>
 
