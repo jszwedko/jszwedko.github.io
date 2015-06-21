@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Jesse Szwedko</title>
+    <link>http://jesseszwedko.com/post/</link>
+    <description>Recent content in Posts on Jesse Szwedko</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://jesseszwedko.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>git-duet release</title>
+      <link>http://jesseszwedko.com/post/git-duet-release/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
+      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
+collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
+more details.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

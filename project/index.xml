@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Jesse Szwedko</title>
+    <link>http://jesseszwedko.com/project/</link>
+    <description>Recent content in Projects on Jesse Szwedko</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://jesseszwedko.com/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>git-duet</title>
+      <link>http://jesseszwedko.com/project/git-duet/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/project/git-duet/</guid>
+      <description>
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; makes use of the committer field of &lt;code&gt;git&lt;/code&gt; commits to allow
+paired pairing while maintaining identity.&lt;/p&gt;
+
+&lt;p&gt;Traditionally, pairing programmers either have to settle for either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Only associating one of their names and email addresses with the commit&lt;/li&gt;
+&lt;li&gt;Abusing &lt;code&gt;user.name&lt;/code&gt; and &lt;code&gt;user.email&lt;/code&gt; to create an amalgamation of their
+names and e-mails (this is what many other tools do, such as
+&lt;a href=&#34;https://github.com/pivotal/git_scripts&#34;&gt;git-pair&lt;/a&gt;). Resulting in commits
+that are attributed to a fictitious identity such as &lt;code&gt;Josh Susser &amp;amp; Sam
+Pierson &amp;lt;pair+jsusser+sam@pivotallabs.com&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; takes a different approach and sets the author and the committer on
+a commit allowing two individuals to associate their real names and e-mails
+with a commit resulting in commits like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git show --pretty=fuller
+commit 54486ba89913e209f00903bdef34fc38e61edeb0
+Author:     Jane Doe &amp;lt;jane.doe@example.com&amp;gt;
+AuthorDate: Sat Jun 20 17:55:19 2015 -0700
+Commit:     John Doe &amp;lt;john.doe@example.com&amp;gt;
+CommitDate: Sat Jun 20 17:55:19 2015 -0700
+
+Paired commit
+
+Signed-off-by: John Doe &amp;lt;john.doe@example.com&amp;gt;
+
+diff --git a/foo b/foo
+new file mode 100644
+index 0000000..e69de29
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a port of &lt;a href=&#34;https://github.com/meatballhat/git-duet&#34;&gt;https://github.com/meatballhat/git-duet&lt;/a&gt; to Golang because
+this was found to be more performant and have less issues during usage due to
+Ruby version managers like &lt;code&gt;rbenv&lt;/code&gt; and &lt;code&gt;rvm&lt;/code&gt; that frequently complain that
+&lt;code&gt;git-duet&lt;/code&gt; is not installed in a given version of Ruby when not using the
+system Ruby. Many kudos to &lt;a href=&#34;https://github.com/meatballhat&#34;&gt;@meatballhat&lt;/a&gt; for
+the initial implementation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing:770c9063314e569fa99eca289bf3a2b8&#34;&gt;Installing&lt;/h2&gt;
+
+&lt;p&gt;Download the binaries from &lt;a href=&#34;https://github.com/git-duet/git-duet/releases&#34;&gt;https://github.com/git-duet/git-duet/releases&lt;/a&gt; and
+place them in your &lt;code&gt;$PATH&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage:770c9063314e569fa99eca289bf3a2b8&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;Create a &lt;code&gt;~/.git-authors&lt;/code&gt; with your authors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;authors:
+  jd: Jane Doe; jane
+  fb: Frances Bar
+  email:
+    domain: awesometown.local
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;git duet &amp;lt;author initals&amp;gt; &amp;lt;committer initials&amp;gt;&lt;/code&gt; to set the author and
+committer.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;git duet-commit&lt;/code&gt; to commit using the set author and committer (I recommend
+aliasing this, e.g. &lt;code&gt;git dci&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;git solo jd&lt;/code&gt; to erase the committer and just set the author (for when you
+aren&amp;rsquo;t pairing).&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkdir your-repo
+$ cd your-repo
+$ git init
+$ touch README.md
+$ git add -A
+$ git duet jd fb
+$ git duet-commit -m &#39;Initial commit&#39;
+$ git show --pretty=fuller
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See &lt;a href=&#34;https://github.com/git-duet/git-duet/&#34;&gt;README.md&lt;/a&gt; for more configuration
+options.&lt;/p&gt;
+
+&lt;p&gt;Admittedly this is still a hack to fit the concept of pairing on code into the
+constraints of the metadata &lt;code&gt;git&lt;/code&gt; allows to be associated with a commit, but
+I find that this hack is better than combining names and emails into the author
+of the commit for the following reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Can easily search for commits that a given user has touched&lt;/li&gt;
+&lt;li&gt;Tools like GitHub are able to hyperlink commits to users and notify the
+appropriate user when a commit has been commented upon.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Eventually &lt;code&gt;git&lt;/code&gt; may support the notion of multiple authors (see:
+&lt;a href=&#34;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&#34;&gt;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&lt;/a&gt; at which point
+&lt;code&gt;git-duet&lt;/code&gt; will change to utilize this.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

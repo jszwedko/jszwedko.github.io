@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://jesseszwedko.com/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/post/git-duet-release/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/git-duet/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/talk/go-debugging/</loc>
+    <lastmod>2014-07-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/talk/go-orms/</loc>
+    <lastmod>2014-01-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/talk/path-to_go_1_1/</loc>
+    <lastmod>2013-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/talk/continous-delivery_pitt/</loc>
+    <lastmod>2012-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/publication/optimizing-energy/</loc>
+    <lastmod>2011-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/publication/visualizing-energy/</loc>
+    <lastmod>2011-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/publication/demonstrating-evacuation/</loc>
+    <lastmod>2009-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/about</loc>
+  </url>
+  
+</urlset>

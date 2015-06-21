@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Talks on Jesse Szwedko</title>
+    <link>http://jesseszwedko.com/talk/</link>
+    <description>Recent content in Talks on Jesse Szwedko</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Jul 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://jesseszwedko.com/talk/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Debugging Go</title>
+      <link>http://jesseszwedko.com/talk/go-debugging/</link>
+      <pubDate>Thu, 31 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/go-debugging/</guid>
+      <description>&lt;p&gt;Talk I gave at the Go Steel Programmers meet-up group in Pittsburgh about
+the current state of Go debugging (both traditional debuggers as well as
+print/log based debugging).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Golang ORMs: A survey of the current state of Golang ORMs</title>
+      <link>http://jesseszwedko.com/talk/go-orms/</link>
+      <pubDate>Thu, 30 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/go-orms/</guid>
+      <description>&lt;p&gt;Talk I gave at the Go Steel Programmers meet-up group in Pittsburgh about
+the current state of Go ORMs.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://news.ycombinator.com/item?id=8411754&#34;&gt;Hacker News Discussion&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Path to Go 1.1</title>
+      <link>http://jesseszwedko.com/talk/path-to_go_1_1/</link>
+      <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/path-to_go_1_1/</guid>
+      <description>&lt;p&gt;Talk given at the Go Steel Programmers meet-up group in Pittsburgh about
+changes in the version 1.1 release of Go with &lt;a href=&#34;https://about.me/sheenathejunglegirl&#34;&gt;Sheena
+Smith&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Continous Delivery: Reliable software development through automation</title>
+      <link>http://jesseszwedko.com/talk/continous-delivery_pitt/</link>
+      <pubDate>Wed, 04 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/continous-delivery_pitt/</guid>
+      <description>
+
+&lt;p&gt;Talk I gave to undergraduate students at the University of Pittsburgh
+as part of Computer Science Department&amp;rsquo;s Tech Talk series where industry
+members give talks about topics not typically covered in undergraduate computer
+science course work. The talk covers the basics of source control, test
+automation, and deployment automation using git, Travis CI, and capistrano.&lt;/p&gt;
+
+&lt;h3 id=&#34;abstract:4237e2cb775c2e768008f7162a3f0cea&#34;&gt;Abstract&lt;/h3&gt;
+
+&lt;p&gt;In much of today&amp;rsquo;s technology industry there is a focus on getting ideas from
+paper to implementation and in front of users as quickly as possible. This
+allows for rapid iteration of the software with real feedback from users to
+drive the direction of the project, which features are needed, which can be
+improved, and which can be removed. Continuous delivery is a software design
+practice that attempts to shorten this cycle time in a way that minimizes risk
+through build repeatability, test automation, and deployment automation.&lt;/p&gt;
+
+&lt;p&gt;In this talk, I hope to demonstrate the effectiveness of the principles of
+continuous delivery by taking us through the evolution of a software design
+process using a simple web application to drive the examples. We will start
+with a process which uses none of the concepts of continuous delivery and
+slowly adds them (using specific tools as examples) so that we can see the
+philosophy of each step along the way. Some of the tools that will be discussed
+include git, Travis CI, and Capistrano. Attendees will walk away with the tools
+and experience necessary to begin implementing the discussed principles in
+their own projects at a small scale.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

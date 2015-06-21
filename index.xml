@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jesse Szwedko</title>
+    <link>http://jesseszwedko.com/</link>
+    <description>Recent content on Jesse Szwedko</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://jesseszwedko.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>git-duet release</title>
+      <link>http://jesseszwedko.com/post/git-duet-release/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
+      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
+collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
+more details.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>git-duet</title>
+      <link>http://jesseszwedko.com/project/git-duet/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/project/git-duet/</guid>
+      <description>
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; makes use of the committer field of &lt;code&gt;git&lt;/code&gt; commits to allow
+paired pairing while maintaining identity.&lt;/p&gt;
+
+&lt;p&gt;Traditionally, pairing programmers either have to settle for either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Only associating one of their names and email addresses with the commit&lt;/li&gt;
+&lt;li&gt;Abusing &lt;code&gt;user.name&lt;/code&gt; and &lt;code&gt;user.email&lt;/code&gt; to create an amalgamation of their
+names and e-mails (this is what many other tools do, such as
+&lt;a href=&#34;https://github.com/pivotal/git_scripts&#34;&gt;git-pair&lt;/a&gt;). Resulting in commits
+that are attributed to a fictitious identity such as &lt;code&gt;Josh Susser &amp;amp; Sam
+Pierson &amp;lt;pair+jsusser+sam@pivotallabs.com&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; takes a different approach and sets the author and the committer on
+a commit allowing two individuals to associate their real names and e-mails
+with a commit resulting in commits like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git show --pretty=fuller
+commit 54486ba89913e209f00903bdef34fc38e61edeb0
+Author:     Jane Doe &amp;lt;jane.doe@example.com&amp;gt;
+AuthorDate: Sat Jun 20 17:55:19 2015 -0700
+Commit:     John Doe &amp;lt;john.doe@example.com&amp;gt;
+CommitDate: Sat Jun 20 17:55:19 2015 -0700
+
+Paired commit
+
+Signed-off-by: John Doe &amp;lt;john.doe@example.com&amp;gt;
+
+diff --git a/foo b/foo
+new file mode 100644
+index 0000000..e69de29
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a port of &lt;a href=&#34;https://github.com/meatballhat/git-duet&#34;&gt;https://github.com/meatballhat/git-duet&lt;/a&gt; to Golang because
+this was found to be more performant and have less issues during usage due to
+Ruby version managers like &lt;code&gt;rbenv&lt;/code&gt; and &lt;code&gt;rvm&lt;/code&gt; that frequently complain that
+&lt;code&gt;git-duet&lt;/code&gt; is not installed in a given version of Ruby when not using the
+system Ruby. Many kudos to &lt;a href=&#34;https://github.com/meatballhat&#34;&gt;@meatballhat&lt;/a&gt; for
+the initial implementation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing:770c9063314e569fa99eca289bf3a2b8&#34;&gt;Installing&lt;/h2&gt;
+
+&lt;p&gt;Download the binaries from &lt;a href=&#34;https://github.com/git-duet/git-duet/releases&#34;&gt;https://github.com/git-duet/git-duet/releases&lt;/a&gt; and
+place them in your &lt;code&gt;$PATH&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage:770c9063314e569fa99eca289bf3a2b8&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;Create a &lt;code&gt;~/.git-authors&lt;/code&gt; with your authors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;authors:
+  jd: Jane Doe; jane
+  fb: Frances Bar
+  email:
+    domain: awesometown.local
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;git duet &amp;lt;author initals&amp;gt; &amp;lt;committer initials&amp;gt;&lt;/code&gt; to set the author and
+committer.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;git duet-commit&lt;/code&gt; to commit using the set author and committer (I recommend
+aliasing this, e.g. &lt;code&gt;git dci&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;git solo jd&lt;/code&gt; to erase the committer and just set the author (for when you
+aren&amp;rsquo;t pairing).&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkdir your-repo
+$ cd your-repo
+$ git init
+$ touch README.md
+$ git add -A
+$ git duet jd fb
+$ git duet-commit -m &#39;Initial commit&#39;
+$ git show --pretty=fuller
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See &lt;a href=&#34;https://github.com/git-duet/git-duet/&#34;&gt;README.md&lt;/a&gt; for more configuration
+options.&lt;/p&gt;
+
+&lt;p&gt;Admittedly this is still a hack to fit the concept of pairing on code into the
+constraints of the metadata &lt;code&gt;git&lt;/code&gt; allows to be associated with a commit, but
+I find that this hack is better than combining names and emails into the author
+of the commit for the following reasons:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Can easily search for commits that a given user has touched&lt;/li&gt;
+&lt;li&gt;Tools like GitHub are able to hyperlink commits to users and notify the
+appropriate user when a commit has been commented upon.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Eventually &lt;code&gt;git&lt;/code&gt; may support the notion of multiple authors (see:
+&lt;a href=&#34;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&#34;&gt;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&lt;/a&gt; at which point
+&lt;code&gt;git-duet&lt;/code&gt; will change to utilize this.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Debugging Go</title>
+      <link>http://jesseszwedko.com/talk/go-debugging/</link>
+      <pubDate>Thu, 31 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/go-debugging/</guid>
+      <description>&lt;p&gt;Talk I gave at the Go Steel Programmers meet-up group in Pittsburgh about
+the current state of Go debugging (both traditional debuggers as well as
+print/log based debugging).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Golang ORMs: A survey of the current state of Golang ORMs</title>
+      <link>http://jesseszwedko.com/talk/go-orms/</link>
+      <pubDate>Thu, 30 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/go-orms/</guid>
+      <description>&lt;p&gt;Talk I gave at the Go Steel Programmers meet-up group in Pittsburgh about
+the current state of Go ORMs.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://news.ycombinator.com/item?id=8411754&#34;&gt;Hacker News Discussion&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Path to Go 1.1</title>
+      <link>http://jesseszwedko.com/talk/path-to_go_1_1/</link>
+      <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/path-to_go_1_1/</guid>
+      <description>&lt;p&gt;Talk given at the Go Steel Programmers meet-up group in Pittsburgh about
+changes in the version 1.1 release of Go with &lt;a href=&#34;https://about.me/sheenathejunglegirl&#34;&gt;Sheena
+Smith&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Continous Delivery: Reliable software development through automation</title>
+      <link>http://jesseszwedko.com/talk/continous-delivery_pitt/</link>
+      <pubDate>Wed, 04 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/talk/continous-delivery_pitt/</guid>
+      <description>
+
+&lt;p&gt;Talk I gave to undergraduate students at the University of Pittsburgh
+as part of Computer Science Department&amp;rsquo;s Tech Talk series where industry
+members give talks about topics not typically covered in undergraduate computer
+science course work. The talk covers the basics of source control, test
+automation, and deployment automation using git, Travis CI, and capistrano.&lt;/p&gt;
+
+&lt;h3 id=&#34;abstract:4237e2cb775c2e768008f7162a3f0cea&#34;&gt;Abstract&lt;/h3&gt;
+
+&lt;p&gt;In much of today&amp;rsquo;s technology industry there is a focus on getting ideas from
+paper to implementation and in front of users as quickly as possible. This
+allows for rapid iteration of the software with real feedback from users to
+drive the direction of the project, which features are needed, which can be
+improved, and which can be removed. Continuous delivery is a software design
+practice that attempts to shorten this cycle time in a way that minimizes risk
+through build repeatability, test automation, and deployment automation.&lt;/p&gt;
+
+&lt;p&gt;In this talk, I hope to demonstrate the effectiveness of the principles of
+continuous delivery by taking us through the evolution of a software design
+process using a simple web application to drive the examples. We will start
+with a process which uses none of the concepts of continuous delivery and
+slowly adds them (using specific tools as examples) so that we can see the
+philosophy of each step along the way. Some of the tools that will be discussed
+include git, Travis CI, and Capistrano. Attendees will walk away with the tools
+and experience necessary to begin implementing the discussed principles in
+their own projects at a small scale.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</title>
+      <link>http://jesseszwedko.com/publication/optimizing-energy/</link>
+      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/publication/optimizing-energy/</guid>
+      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
+widespread use of sensors, wireless connectivity and the wide variety of
+end-user mobile devices. Typically, such event detection is carried out by
+a data stream management system executing continuous queries (CQs), registered
+by the users. In this paper, we consider the situation where the results of the
+CQs, which are in the form of individual data streams, are disseminated to the
+users&amp;rsquo; hand-held, battery-operated devices over a shared broadcast medium. In
+order to reduce the overall energy consumption of the mobile devices, we
+propose Bose&lt;em&gt;, a power-aware query operator placement algorithm that determines
+which part of a CQ plan should be executed at the data stream management system
+and which part should be executed at the mobile device. Bose&lt;/em&gt;&amp;rsquo;s effectiveness
+in reducing energy consumption, as well as response time under specific
+conditions, is evaluated using simulation, driven by parameters measured on
+real mobile devices.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Visualization of Energy Consumption of Continuous Query Processing with Mobile Clients</title>
+      <link>http://jesseszwedko.com/publication/visualizing-energy/</link>
+      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/publication/visualizing-energy/</guid>
+      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
+widespread use of sensors, wireless connectivity and the wide variety of
+end-user mobile devices. Typically, event detection is carried out by a central
+server executing continuous queries. In this demonstration, we focus on the
+case where users with mobile devices submit continuous queries (for event
+detection) to a data stream management server which disseminates the results to
+the users over a shared broadcast medium. In order to minimize the overall
+energy consumption of the mobile devices (clients), we have proposed operator
+placement algorithms that split the processing of each continuous query between
+the centralized server and the requesting mobile clients, thus trading off
+energy consumption for communication energy consumption for computation.
+Specifically, in this demonstration, we present an interactive graphical
+interface to the inner workings of our three proposed operator placement
+algorithms, whereby attendees are able to investigate various query plans and
+the decisions that the algorithms make, as well as visualize the results of
+these algorithms in terms of client power consumption and response time.
+Besides being able to step through an algorithm&amp;rsquo;s execution as it considers
+various operator placement decisions, attendees are able to experiment with
+different scenarios by customizing the parameters of the query workloads (e.g.,
+changing the selectivities and projectivities of the operators) or the client&amp;rsquo;s
+profile (e.g., power consumed per unit of time of processing) and examine the
+impact.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Demonstrating an Evacuation Algorithm with Mobile Devices using an E-Scavenger Hunt Game</title>
+      <link>http://jesseszwedko.com/publication/demonstrating-evacuation/</link>
+      <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/publication/demonstrating-evacuation/</guid>
+      <description>&lt;p&gt;Casualties in emergency situations are often caused by panic and in cases where
+building evacuation is required, they are often caused by a disorganized
+evacuation. This has motivated us to design a two-layer indoor evacuation
+system that takes advantage of two technologies all people carry on them,
+namely, cellular phones with cameras and RFID cards. The proposed system
+integrates QR-Code and RFID-based positioning with a routing system with
+mounted terminals and displays for guiding people with RFID tags out of
+a building. People with mobile devices with cameras use an application that
+resolves QR-Codes into web addresses that point to dynamically generated
+evacuation instructions. As a proof-of-concept, we have implemented this system
+with commercially available tools and components as an e-scavenger hunt game
+which uses SCAVY, our novel evacuation (routing) algorithm, to guide players
+around a building visiting different locations in a load balancing manner. In
+this demo, we are planning to deploy this e-scavenger game and the participants
+would be able to follow the progress of the game (evacuation) through a system
+monitor dashboard.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://jesseszwedko.com/about</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/about</guid>
+      <description>&lt;p&gt;Jesse Szwedko is a San Francisco transplant by way of Pittsburgh who currently
+works at &lt;a href=&#34;https://www.braintreepayments.com/&#34;&gt;Braintree&lt;/a&gt; on building tools to
+help other developers deploy and maintain their applications.&lt;/p&gt;
+
+&lt;p&gt;Interests include Golang, automation, and hiking.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
