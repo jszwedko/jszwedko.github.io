@@ -3,17 +3,22 @@
   
   <url>
     <loc>http://jesseszwedko.com/</loc>
-    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+    <lastmod>2015-07-11T19:15:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://jesseszwedko.com/project/git-duet/</loc>
-    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+    <loc>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</loc>
+    <lastmod>2015-07-11T19:15:44-07:00</lastmod>
   </url>
   
   <url>
     <loc>http://jesseszwedko.com/post/git-duet-release/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/git-duet/</loc>
     <lastmod>2015-05-30T00:00:00+00:00</lastmod>
   </url>
   

@@ -6,8 +6,137 @@
     <description>Recent content on Jesse Szwedko</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2015 19:15:44 -0700</lastBuildDate>
     <atom:link href="http://jesseszwedko.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using Ansible to provision AWS autoscaling instances</title>
+      <link>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</link>
+      <pubDate>Sat, 11 Jul 2015 19:15:44 -0700</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</guid>
+      <description>
+
+&lt;h2 id=&#34;problem-statement:e8ac8ab4751f14b2c4a36b81bcb2af64&#34;&gt;Problem statement:&lt;/h2&gt;
+
+&lt;p&gt;If you are running your infrastructure on EC2 in AWS, you are probably using
+&lt;a href=&#34;http://aws.amazon.com/autoscaling/&#34;&gt;AWS&amp;rsquo;s autoscaling service&lt;/a&gt; to manage your
+instances. If you are not, you should be. Even if you don&amp;rsquo;t plan to have your
+instances scale up and down based on traffic patterns, you&amp;rsquo;ll want to use
+autoscaling for the simple case of keeping a certain number of instances
+running if one of them stops responding or is decommissioned by AWS &amp;ndash; without
+requiring manual intervention by an engineer to spin up and configure a new
+server.&lt;/p&gt;
+
+&lt;p&gt;The tricky bit is making sure that the new instances that are created are
+configured properly for their purpose. For Cassandra, for example, this might
+mean pointing the configuration at the seed nodes for your cluster. For a web
+server this may mean configuring which database to point to and credentials for
+connecting. Either way it is rare that your server will need no configuration
+at launch time to operate properly (even though you should attempt to embed as
+much configuration as possible into your AMIs). AWS&amp;rsquo;s solution for this is
+user-data, a script (or cloud-init file) that is executed on first boot.&lt;/p&gt;
+
+&lt;p&gt;The simplest thing you can do is provide a bash script, e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
+
+aws ec2 describe-instances \
+  --filters &amp;quot;Name=tag:Database,Values=true&amp;quot; \
+  --query &#39;Reservations[*].Instances[*].PrivateDnsName&#39; \
+  --output text \
+  &amp;gt; /etc/databases
+
+systemctl start my-webservice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a contrived example, but I hope it is illustrative.&lt;/p&gt;
+
+&lt;p&gt;At Braintree, as our user-data became more complex (things like configuring
+firewall rules, setting up certificates and configuring services like
+exhibitor), we made the decision to migrate from bash scripts to
+&lt;a href=&#34;http://www.ansible.com/home&#34;&gt;Ansible&lt;/a&gt; configuration to better organize it and
+take advantage of &lt;a href=&#34;http://jinja.pocoo.org/docs/dev/&#34;&gt;jinja2&lt;/a&gt; templating.&lt;/p&gt;
+
+&lt;p&gt;If you are familiar with Ansible, you can probably guess that the difficulty
+with using Ansible as user-data is that Ansible configuration typically
+consists of a playbook and all of its supporting assets (templates, static
+files, roles, etc.) which doesn&amp;rsquo;t neatly fit into a single file (AWS also
+limits user-data to 16 KB) so it may seem like your only option is to store the
+configuration elsewhere (like S3) and retrieve it in your user-data or bake it
+into your image (slow turn around time for changes), but below I&amp;rsquo;ll describe
+another option that ended up working for us.&lt;/p&gt;
+
+&lt;h2 id=&#34;solution:e8ac8ab4751f14b2c4a36b81bcb2af64&#34;&gt;Solution:&lt;/h2&gt;
+
+&lt;p&gt;Compress and base64 encode your Ansible configuration! It may seem like
+a simple idea, but it didn&amp;rsquo;t immediately occur to us so I thought I would share
+it here. I also think this technique could be used for other standalone
+configuration management tools like
+&lt;a href=&#34;https://docs.chef.io/chef_solo.html&#34;&gt;&lt;code&gt;chef-solo&lt;/code&gt;&lt;/a&gt; or even just modularized
+bash scripts.&lt;/p&gt;
+
+&lt;p&gt;We use Terraform to manage our infrastructure, so we have this compression and
+base64 encoding happen as a preprocessing step when planning (using a wrapper
+script around &lt;code&gt;terraform plan&lt;/code&gt;) that is used by our launch configuration
+resources, but you could fit it into your workflow however works best.&lt;/p&gt;
+
+&lt;p&gt;Example script you can use to automate creation of the user-data script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;#! /bin/sh
+
+ansible_configuration=$1
+shift
+
+cat &amp;lt;&amp;lt;-EOF
+#! /bin/bash
+
+set -o errexit
+
+mkdir -p /tmp/ansible
+echo &#39;$(tar c -C &amp;quot;$ansible_configuration&amp;quot; . | gzip -n | base64 -w 0)&#39; | base64 -d | tar xz -C /tmp/ansible
+cd /tmp/ansible
+EOF
+
+echo -n &#39;/usr/local/bin/ansible-playbook playbook.yml --connection=local -i localhost, -e target=localhost&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that this script assumes that you have a variable called &lt;code&gt;target&lt;/code&gt; that you
+use for your &lt;code&gt;hosts&lt;/code&gt; declaration in your playbook.&lt;/p&gt;
+
+&lt;p&gt;Example of generated user-data (base64 encoded directory shortened for brevity):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#! /bin/bash
+
+set -o errexit
+
+mkdir -p /tmp/ansible
+echo &#39;H4sIAAAAAAAAA+w9aXPbRpb+[...]+CV+qgxijv8ggqkPOrhZngzP99N/Tv0z+6bZbGw3u9QXa2v1ovOfw0nfP/yPxjlBAKBQCAQCAQCgUAgEAgEAoHg+eEnXr53cwCgAAA=&#39; | base64 -d | tar xz -C /tmp/ansible
+cd /tmp/ansible
+/usr/local/bin/ansible-playbook playbook.yml --connection=local -i localhost, -e target=localhost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is what you would use for the user-data in your launch configuration
+whereby, on launch, the encoded Ansible configuration is decoded, written
+out to &lt;code&gt;/tmp/ansible&lt;/code&gt;, and &lt;code&gt;ansible-playbook&lt;/code&gt; executed.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>git-duet release</title>
+      <link>http://jesseszwedko.com/post/git-duet-release/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
+      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
+collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
+more details.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>git-duet</title>
@@ -112,22 +241,6 @@ appropriate user when a commit has been commented upon.&lt;/li&gt;
 &lt;p&gt;Eventually &lt;code&gt;git&lt;/code&gt; may support the notion of multiple authors (see:
 &lt;a href=&#34;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&#34;&gt;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&lt;/a&gt; at which point
 &lt;code&gt;git-duet&lt;/code&gt; will change to utilize this.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>git-duet release</title>
-      <link>http://jesseszwedko.com/post/git-duet-release/</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
-      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
-collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
-
-&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
-more details.&lt;/p&gt;
 </description>
     </item>
     
