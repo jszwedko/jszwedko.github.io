@@ -36,10 +36,10 @@ the current state of Go ORMs.&lt;/p&gt;
     
     <item>
       <title>The Path to Go 1.1</title>
-      <link>http://jesseszwedko.com/talk/path-to_go_1_1/</link>
+      <link>http://jesseszwedko.com/talk/path-to-go-1-1/</link>
       <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://jesseszwedko.com/talk/path-to_go_1_1/</guid>
+      <guid>http://jesseszwedko.com/talk/path-to-go-1-1/</guid>
       <description>&lt;p&gt;Talk given at the Go Steel Programmers meet-up group in Pittsburgh about
 changes in the version 1.1 release of Go with &lt;a href=&#34;https://about.me/sheenathejunglegirl&#34;&gt;Sheena
 Smith&lt;/a&gt;.&lt;/p&gt;
@@ -48,10 +48,10 @@ Smith&lt;/a&gt;.&lt;/p&gt;
     
     <item>
       <title>Continous Delivery: Reliable software development through automation</title>
-      <link>http://jesseszwedko.com/talk/continous-delivery_pitt/</link>
+      <link>http://jesseszwedko.com/talk/continous-delivery-pitt/</link>
       <pubDate>Wed, 04 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://jesseszwedko.com/talk/continous-delivery_pitt/</guid>
+      <guid>http://jesseszwedko.com/talk/continous-delivery-pitt/</guid>
       <description>
 
 &lt;p&gt;Talk I gave to undergraduate students at the University of Pittsburgh
@@ -60,7 +60,7 @@ members give talks about topics not typically covered in undergraduate computer
 science course work. The talk covers the basics of source control, test
 automation, and deployment automation using git, Travis CI, and capistrano.&lt;/p&gt;
 
-&lt;h3 id=&#34;abstract:4237e2cb775c2e768008f7162a3f0cea&#34;&gt;Abstract&lt;/h3&gt;
+&lt;h3 id=&#34;abstract:9d33b3fc261765f5f564b217498f444d&#34;&gt;Abstract&lt;/h3&gt;
 
 &lt;p&gt;In much of today&amp;rsquo;s technology industry there is a focus on getting ideas from
 paper to implementation and in front of users as quickly as possible. This

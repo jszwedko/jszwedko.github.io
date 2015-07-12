@@ -10,22 +10,6 @@
     <atom:link href="http://jesseszwedko.com/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>git-duet release</title>
-      <link>http://jesseszwedko.com/post/git-duet-release/</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
-      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
-collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
-
-&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
-more details.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>git-duet</title>
       <link>http://jesseszwedko.com/project/git-duet/</link>
       <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
@@ -132,6 +116,22 @@ appropriate user when a commit has been commented upon.&lt;/li&gt;
     </item>
     
     <item>
+      <title>git-duet release</title>
+      <link>http://jesseszwedko.com/post/git-duet-release/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
+      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
+collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
+more details.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Debugging Go</title>
       <link>http://jesseszwedko.com/talk/go-debugging/</link>
       <pubDate>Thu, 31 Jul 2014 00:00:00 +0000</pubDate>
@@ -158,10 +158,10 @@ the current state of Go ORMs.&lt;/p&gt;
     
     <item>
       <title>The Path to Go 1.1</title>
-      <link>http://jesseszwedko.com/talk/path-to_go_1_1/</link>
+      <link>http://jesseszwedko.com/talk/path-to-go-1-1/</link>
       <pubDate>Thu, 28 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://jesseszwedko.com/talk/path-to_go_1_1/</guid>
+      <guid>http://jesseszwedko.com/talk/path-to-go-1-1/</guid>
       <description>&lt;p&gt;Talk given at the Go Steel Programmers meet-up group in Pittsburgh about
 changes in the version 1.1 release of Go with &lt;a href=&#34;https://about.me/sheenathejunglegirl&#34;&gt;Sheena
 Smith&lt;/a&gt;.&lt;/p&gt;
@@ -170,10 +170,10 @@ Smith&lt;/a&gt;.&lt;/p&gt;
     
     <item>
       <title>Continous Delivery: Reliable software development through automation</title>
-      <link>http://jesseszwedko.com/talk/continous-delivery_pitt/</link>
+      <link>http://jesseszwedko.com/talk/continous-delivery-pitt/</link>
       <pubDate>Wed, 04 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://jesseszwedko.com/talk/continous-delivery_pitt/</guid>
+      <guid>http://jesseszwedko.com/talk/continous-delivery-pitt/</guid>
       <description>
 
 &lt;p&gt;Talk I gave to undergraduate students at the University of Pittsburgh
@@ -182,7 +182,7 @@ members give talks about topics not typically covered in undergraduate computer
 science course work. The talk covers the basics of source control, test
 automation, and deployment automation using git, Travis CI, and capistrano.&lt;/p&gt;
 
-&lt;h3 id=&#34;abstract:4237e2cb775c2e768008f7162a3f0cea&#34;&gt;Abstract&lt;/h3&gt;
+&lt;h3 id=&#34;abstract:9d33b3fc261765f5f564b217498f444d&#34;&gt;Abstract&lt;/h3&gt;
 
 &lt;p&gt;In much of today&amp;rsquo;s technology industry there is a focus on getting ideas from
 paper to implementation and in front of users as quickly as possible. This
@@ -201,6 +201,29 @@ philosophy of each step along the way. Some of the tools that will be discussed
 include git, Travis CI, and Capistrano. Attendees will walk away with the tools
 and experience necessary to begin implementing the discussed principles in
 their own projects at a small scale.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</title>
+      <link>http://jesseszwedko.com/publication/optimizing-energy/</link>
+      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/publication/optimizing-energy/</guid>
+      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
+widespread use of sensors, wireless connectivity and the wide variety of
+end-user mobile devices. Typically, such event detection is carried out by
+a data stream management system executing continuous queries (CQs), registered
+by the users. In this paper, we consider the situation where the results of the
+CQs, which are in the form of individual data streams, are disseminated to the
+users&amp;rsquo; hand-held, battery-operated devices over a shared broadcast medium. In
+order to reduce the overall energy consumption of the mobile devices, we
+propose Bose*, a power-aware query operator placement algorithm that determines
+which part of a CQ plan should be executed at the data stream management system
+and which part should be executed at the mobile device. Bose*&amp;rsquo;s effectiveness
+in reducing energy consumption, as well as response time under specific
+conditions, is evaluated using simulation, driven by parameters measured on
+real mobile devices.&lt;/p&gt;
 </description>
     </item>
     
@@ -232,29 +255,6 @@ different scenarios by customizing the parameters of the query workloads (e.g.,
 changing the selectivities and projectivities of the operators) or the client&amp;rsquo;s
 profile (e.g., power consumed per unit of time of processing) and examine the
 impact.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Optimizing the Energy Consumption of Continuous Query Processing with Mobile Clients</title>
-      <link>http://jesseszwedko.com/publication/optimizing-energy/</link>
-      <pubDate>Wed, 01 Jun 2011 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/publication/optimizing-energy/</guid>
-      <description>&lt;p&gt;Complex event detection over data streams has become ubiquitous through the
-widespread use of sensors, wireless connectivity and the wide variety of
-end-user mobile devices. Typically, such event detection is carried out by
-a data stream management system executing continuous queries (CQs), registered
-by the users. In this paper, we consider the situation where the results of the
-CQs, which are in the form of individual data streams, are disseminated to the
-users&amp;rsquo; hand-held, battery-operated devices over a shared broadcast medium. In
-order to reduce the overall energy consumption of the mobile devices, we
-propose Bose*, a power-aware query operator placement algorithm that determines
-which part of a CQ plan should be executed at the data stream management system
-and which part should be executed at the mobile device. Bose*&amp;rsquo;s effectiveness
-in reducing energy consumption, as well as response time under specific
-conditions, is evaluated using simulation, driven by parameters measured on
-real mobile devices.&lt;/p&gt;
 </description>
     </item>
     
