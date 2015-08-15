@@ -144,6 +144,35 @@ on a fresh instance.&lt;/p&gt;
     </item>
     
     <item>
+      <title>go-circleci</title>
+      <link>http://jesseszwedko.com/project/go-circleci/</link>
+      <pubDate>Sat, 15 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/project/go-circleci/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jszwedko/go-circleci&#34;&gt;&lt;code&gt;go-circleci&lt;/code&gt;&lt;/a&gt; is a Go library that
+I wrote to wrap &lt;a href=&#34;https://circleci.com/docs/api&#34;&gt;CircleCI&amp;rsquo;s API&lt;/a&gt;. It can be used
+by other Go projects that wish to interact with the API.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://circleci.com&#34;&gt;CircleCI&lt;/a&gt; is a continuous integration service that you
+can use with your GitHub projects to automatically build and test your code.&lt;/p&gt;
+
+&lt;p&gt;The library API itself mirrors closely the endpoints exposed by CircleCI, you
+can see the &lt;a href=&#34;http://godoc.org/github.com/jszwedko/go-circleci&#34;&gt;GoDoc&lt;/a&gt; page for
+the latest documentation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing:2f1696f756a2b805fe5dfe31b1f71df4&#34;&gt;Installing&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set up your &lt;a href=&#34;https://golang.org/doc/code.html&#34;&gt;Go build environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;go get github.com/jszwedko/go-circleci&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;In your project, import the library via &lt;code&gt;import &amp;quot;github.com/jszwedko/go-circleci&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>circleci-cli</title>
       <link>http://jesseszwedko.com/project/circleci-cli/</link>
       <pubDate>Sat, 15 Aug 2015 00:00:00 +0000</pubDate>
@@ -265,35 +294,6 @@ documentation.&lt;/p&gt;
     </item>
     
     <item>
-      <title>go-circleci</title>
-      <link>http://jesseszwedko.com/project/go-circleci/</link>
-      <pubDate>Sat, 15 Aug 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/project/go-circleci/</guid>
-      <description>
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/jszwedko/go-circleci&#34;&gt;&lt;code&gt;go-circleci&lt;/code&gt;&lt;/a&gt; is a Go library that
-I wrote to wrap &lt;a href=&#34;https://circleci.com/docs/api&#34;&gt;CircleCI&amp;rsquo;s API&lt;/a&gt;. It can be used
-by other Go projects that wish to interact with the API.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://circleci.com&#34;&gt;CircleCI&lt;/a&gt; is a continuous integration service that you
-can use with your GitHub projects to automatically build and test your code.&lt;/p&gt;
-
-&lt;p&gt;The library API itself mirrors closely the endpoints exposed by CircleCI, you
-can see the &lt;a href=&#34;http://godoc.org/github.com/jszwedko/go-circleci&#34;&gt;GoDoc&lt;/a&gt; page for
-the latest documentation.&lt;/p&gt;
-
-&lt;h2 id=&#34;installing:2f1696f756a2b805fe5dfe31b1f71df4&#34;&gt;Installing&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Set up your &lt;a href=&#34;https://golang.org/doc/code.html&#34;&gt;Go build environment&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;go get github.com/jszwedko/go-circleci&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;In your project, import the library via &lt;code&gt;import &amp;quot;github.com/jszwedko/go-circleci&amp;quot;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Using Ansible to provision AWS autoscaling instances</title>
       <link>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</link>
       <pubDate>Sat, 11 Jul 2015 19:15:44 -0700</pubDate>
@@ -407,22 +407,6 @@ out to &lt;code&gt;/tmp/ansible&lt;/code&gt;, and &lt;code&gt;ansible-playbook&l
     </item>
     
     <item>
-      <title>git-duet release</title>
-      <link>http://jesseszwedko.com/post/git-duet-release/</link>
-      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
-      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
-collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
-
-&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
-more details.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>git-duet</title>
       <link>http://jesseszwedko.com/project/git-duet/</link>
       <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
@@ -525,6 +509,22 @@ appropriate user when a commit has been commented upon.&lt;/li&gt;
 &lt;p&gt;Eventually &lt;code&gt;git&lt;/code&gt; may support the notion of multiple authors (see:
 &lt;a href=&#34;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&#34;&gt;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=451880)&lt;/a&gt; at which point
 &lt;code&gt;git-duet&lt;/code&gt; will change to utilize this.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>git-duet release</title>
+      <link>http://jesseszwedko.com/post/git-duet-release/</link>
+      <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
+      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
+collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
+more details.&lt;/p&gt;
 </description>
     </item>
     
