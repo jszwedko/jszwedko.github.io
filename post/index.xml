@@ -6,8 +6,142 @@
     <description>Recent content in Posts on Jesse Szwedko</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Jul 2015 19:15:44 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2015 13:16:22 -0700</lastBuildDate>
     <atom:link href="http://jesseszwedko.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AWS Autoscaling Ansible Inventory</title>
+      <link>http://jesseszwedko.com/post/ansible-autoscaling-inventory/</link>
+      <pubDate>Sat, 15 Aug 2015 13:16:22 -0700</pubDate>
+      
+      <guid>http://jesseszwedko.com/post/ansible-autoscaling-inventory/</guid>
+      <description>&lt;p&gt;As described in a &lt;a href=&#34;http://jesseszwedko.com/post/ansible-aws-launch-configuration/&#34;&gt;previous post&lt;/a&gt;, at
+&lt;a href=&#34;http://braintreepayments.com/&#34;&gt;Braintree&lt;/a&gt;, we use Ansible as the &lt;a href=&#34;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html&#34;&gt;user
+data&lt;/a&gt; in the
+launch configurations (LC) of our autoscaling groups (ASGs) to configure
+instances on boot via a bash script with a base64 encoded tarball of the
+playbook directory. While we find this is a very effective way to structure the
+configuration, testing new configuration can be time consuming as it requires a
+new LC to be created and attached to the ASG followed by cycling an instance in
+the ASG by terminating it so that a new one, with the new configuration, takes
+its place.&lt;/p&gt;
+
+&lt;p&gt;However, another advantage of using Ansible for configuration is that we can
+run the configuration locally and target the instances that are part of the ASG
+(you&amp;rsquo;d want to use a non-production ASG, of course) to test new configuration
+iteratively.  To do this, we need to create an inventory of these instances so
+that Ansible knows which to run the configuration against.  Luckily, Ansible
+allows you to write &lt;a href=&#34;http://docs.ansible.com/ansible/intro_dynamic_inventory.html&#34;&gt;dynamic
+inventories&lt;/a&gt; that
+are actually executables that will be run by Ansible to generate the inventory.&lt;/p&gt;
+
+&lt;p&gt;Here is an adaptation of the inventory script that we use (with Braintree
+specific variables and other noise removed):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#! /usr/bin/env python
+
+import argparse
+import boto.ec2.autoscale
+import json
+import os
+import sys
+
+def get_tag(tags, key):
+    for tag in tags:
+        if tag.key == key:
+            return tag.value
+
+    return None
+
+region = os.environ.get(&#39;AWS_REGION&#39;, None)
+if region is None:
+    print &amp;quot;$AWS_REGION must be set&amp;quot;
+    sys.exit(1)
+
+parser = argparse.ArgumentParser(description=&#39;Dynamic inventory for autoscaling groups&#39;)
+parser.add_argument(&#39;--list&#39;, help=&amp;quot;list hosts&amp;quot;, action=&amp;quot;store_true&amp;quot;)
+parser.add_argument(&#39;--host&#39;, help=&amp;quot;list host vars&amp;quot;)
+args = parser.parse_args()
+
+if args.host:
+  print &amp;quot;{}&amp;quot;
+
+if not args.list:
+  sys.exit(1)
+
+autoscale = boto.ec2.autoscale.connect_to_region(region)
+ec2 = boto.ec2.connect_to_region(region)
+
+inventory = {&amp;quot;_meta&amp;quot;: {&amp;quot;hostvars&amp;quot;: {}}}
+for autoscaling_group in autoscale.get_all_groups():
+  instance_ids = [i.instance_id for i in autoscaling_group.instances]
+  instance_dns_names = [i.public_dns_name for r in ec2.get_all_instances(instance_ids) for i in r.instances]
+  name = get_tag(autoscaling_group.tags, &#39;Name&#39;)
+  if name not in inventory:
+      inventory[name] = { &amp;quot;hosts&amp;quot;: [] }
+  inventory[name][&#39;hosts&#39;] += instance_dns_names
+
+print json.dumps(inventory)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This script will pull all of the ASGs in your region and return their instances
+grouped by the &lt;code&gt;Name&lt;/code&gt; tag on the autoscaling group. There exists a more full
+featured &lt;a href=&#34;https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py&#34;&gt;ec2
+inventory&lt;/a&gt;
+script, but we found this didn&amp;rsquo;t work for our use cases because it doesn&amp;rsquo;t
+handle grouping instances by autoscaling groups.&lt;/p&gt;
+
+&lt;p&gt;The use of &lt;code&gt;boto&lt;/code&gt; allows us to easily take AWS credentials from all of the
+typical places (&lt;code&gt;~/.aws/credentials&lt;/code&gt;, environment variables, and instance IAM
+roles).&lt;/p&gt;
+
+&lt;p&gt;Example output of &lt;code&gt;AWS_REGION=us-east-1 ./asg-inventory --list | jq .&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;haproxy&amp;quot;: {
+    &amp;quot;hosts&amp;quot;: [
+      &amp;quot;ec2-55-1-114-78.us-west-1.compute.amazonaws.com&amp;quot;,
+      &amp;quot;ec2-51-9-184-33.us-west-1.compute.amazonaws.com&amp;quot;
+    ]
+  },
+  &amp;quot;_meta&amp;quot;: {
+    &amp;quot;hostvars&amp;quot;: {}
+  },
+  &amp;quot;web_servers&amp;quot;: {
+    &amp;quot;hosts&amp;quot;: [
+      &amp;quot;ec2-59-68-77-112.us-west-1.compute.amazonaws.com&amp;quot;,
+      &amp;quot;ec2-52-151-19-125.us-west-1.compute.amazonaws.com&amp;quot;
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In your playbook, it is a good idea to expose the target hosts as a variable,
+e.g.:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;---
+- hosts: &amp;quot;{{ target }}&amp;quot;
+  vars:
+    target: 127.0.0.1
+  tasks:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So that you now can then do something like: &lt;code&gt;AWS_REGION=us-east-1
+ansible-playbook -i ./asg-inventory /path/to/playbook.yml -e target=haproxy&lt;/code&gt; to
+run your local playbook against the remote instances in the &lt;code&gt;haproxy&lt;/code&gt;
+autoscaling group as you make changes locally.&lt;/p&gt;
+
+&lt;p&gt;Once you are satisfied with your configuration, I still recommend going through
+the process of updating the LC with your gzipped Ansible configuration (again
+see my &lt;a href=&#34;http://jesseszwedko.com/post/ansible-aws-launch-configuration/&#34;&gt;previous post&lt;/a&gt; for a way to do this) and
+spinning a fresh instance up in your ASG to ensure that your configuration
+works when ran from scratch. I&amp;rsquo;ve often been bit by configuration that worked
+while I was iteratively adding to it and mutating state where it did not work
+on a fresh instance.&lt;/p&gt;
+
+&lt;p&gt;Happy Ansibling!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Using Ansible to provision AWS autoscaling instances</title>
