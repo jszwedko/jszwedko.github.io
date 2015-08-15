@@ -6,8 +6,158 @@
     <description>Recent content in Projects on Jesse Szwedko</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://jesseszwedko.com/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>circleci-cli</title>
+      <link>http://jesseszwedko.com/project/circleci-cli/</link>
+      <pubDate>Sat, 15 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/project/circleci-cli/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jszwedko/circleci-cli&#34;&gt;&lt;code&gt;circleci-cli&lt;/code&gt;&lt;/a&gt; is a CLI too that
+allows you to interact with CircleCI without leaving the comfort of your
+terminal.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://circleci.com&#34;&gt;CircleCI&lt;/a&gt; is a continuous integration service that you
+can use with your GitHub projects to automatically build and test your code.
+To help you automate tasks, they expose an &lt;a href=&#34;https://circleci.com/docs/api&#34;&gt;HTTP + JSON
+API&lt;/a&gt; that you can interact with. &lt;code&gt;circleci-cli&lt;/code&gt;
+wraps this API in a nice interface so that you can view, retry, cancel builds
+and more!&lt;/p&gt;
+
+&lt;h2 id=&#34;installing:7b174a3f5b6d3932a736691e39ba73d7&#34;&gt;Installing&lt;/h2&gt;
+
+&lt;p&gt;Download the binaries from &lt;a href=&#34;https://github.com/jszwedko/circleci-cli/releases&#34;&gt;https://github.com/jszwedko/circleci-cli/releases&lt;/a&gt; and
+place them in your &lt;code&gt;$PATH&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Generate an API token via the &lt;a href=&#34;https://circleci.com/account/api&#34;&gt;settings page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;examples:7b174a3f5b6d3932a736691e39ba73d7&#34;&gt;Examples&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ export CIRCLE_TOKEN=XXXXX # token generated above
+$ circleci projects -v
+jszwedko/go-circleci
+master*  success
+
+jszwedko/circleci-cli
+master*  failed
+
+$ circleci recent-builds -a
+jszwedko/circleci-cli/2    failed     master    Fix wording in README
+jszwedko/go-circleci/3     success    master    Fix link
+jszwedko/go-circleci/2     success    master    Add build badge
+jszwedko/circleci-cli/1    failed     master    Add link to releases page
+jszwedko/go-circleci/1     success    master    Update README for new location
+
+$ circleci show -p jszwedko/go-circle-ci -n 2 # try running with -v
+Subject           Add build badge
+Trigger           github
+Author            Jesse Szwedko
+Committer         Jesse Szwedko
+Status            success
+Build Parameters
+                  None
+Started           2015-08-14 21:33:44.678 +0000 UTC
+Duration          28.604s
+
+Build 0
+* Starting the build (success) (770ms)
+
+* Start container (success) (5.289s)
+
+* Enable SSH (success) (1.468s)
+
+* Restore source cache (success) (1.448s)
+
+* Checkout using deploy key: 37:27:f7:68:85:43:46:d2:e1:30:83:8f:f7:1b:ad:c2 (success) (2.378s)
+
+* Configure the build (success) (80ms)
+
+* Restore cache (success) (3.783s)
+
+* rm -rf $HOME/.go_workspace (success) (726ms)
+
+* Save cache (success) (674ms)
+
+* go vet ./... (success) (1.033s)
+
+* go test ./... (success) (1.428s)
+
+* Collect test metadata (experimental). (success) (1.568s)
+
+* Collect artifacts (success) (6.515s)
+
+* Disable SSH (success) (8ms)
+
+$ circleci -h
+NAME:
+   circleci - Tool for interacting with the CircleCI API
+
+USAGE:
+   circleci [global options] command [command options] [arguments...]
+
+VERSION:
+   0.0.1-2-gcad9be7 (cad9be7f983569548d473ef5335a3a25fe2e425b)
+
+COMMANDS:
+   projects                     Print projects
+   recent-builds, recent        Recent builds for the current project
+   show                         Show details for build
+   list-artifacts, artifacts    Show artifacts for build (default to latest)
+   test-metadata                Show test metadata for build
+   retry-build, retry           Retry a build
+   cancel-build, cancel         Cancel a build
+   build                        Trigger a new build
+   clear-cache                  Clear the build cache
+   add-env-var                  Add an environment variable to the project (expects the name and value as arguments)
+   delete-env-var               Add an environment variable to the project (expects the name as argument)
+   add-ssh-key                  Add an SSH key to be used to access external systems (expects the hostname and private key as arguments)
+   help, h                      Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --host, -H &amp;quot;https://circleci.com&amp;quot;    CircleCI URI [$CIRCLE_HOST]
+   --token, -t                          API token to use to access CircleCI (not needed for displaying information about public repositories) [$CIRCLE_TOKEN]
+   --help, -h                           show help
+   --version, -v                        print the version
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The exact commands and output may very with updates, so please see the
+&lt;a href=&#34;https://github.com/jszwedko/circleci-cli&#34;&gt;README&lt;/a&gt; for the most up-to-date
+documentation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>go-circleci</title>
+      <link>http://jesseszwedko.com/project/go-circleci/</link>
+      <pubDate>Sat, 15 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://jesseszwedko.com/project/go-circleci/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/jszwedko/go-circleci&#34;&gt;&lt;code&gt;go-circleci&lt;/code&gt;&lt;/a&gt; is a Go library that
+I wrote to wrap &lt;a href=&#34;https://circleci.com/docs/api&#34;&gt;CircleCI&amp;rsquo;s API&lt;/a&gt;. It can be used
+by other Go projects that wish to interact with the API.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://circleci.com&#34;&gt;CircleCI&lt;/a&gt; is a continuous integration service that you
+can use with your GitHub projects to automatically build and test your code.&lt;/p&gt;
+
+&lt;p&gt;The library API itself mirrors closely the endpoints exposed by CircleCI, you
+can see the &lt;a href=&#34;http://godoc.org/github.com/jszwedko/go-circleci&#34;&gt;GoDoc&lt;/a&gt; page for
+the latest documentation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing:2f1696f756a2b805fe5dfe31b1f71df4&#34;&gt;Installing&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set up your &lt;a href=&#34;https://golang.org/doc/code.html&#34;&gt;Go build environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;go get github.com/jszwedko/go-circleci&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;In your project, import the library via &lt;code&gt;import &amp;quot;github.com/jszwedko/go-circleci&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>git-duet</title>
@@ -17,8 +167,8 @@
       <guid>http://jesseszwedko.com/project/git-duet/</guid>
       <description>
 
-&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; makes use of the committer field of &lt;code&gt;git&lt;/code&gt; commits to allow
-paired pairing while maintaining identity.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/git-duet/git-duet&#34;&gt;&lt;code&gt;git-duet&lt;/code&gt;&lt;/a&gt; makes use of the committer
+field of &lt;code&gt;git&lt;/code&gt; commits to allow paired pairing while maintaining identity.&lt;/p&gt;
 
 &lt;p&gt;Traditionally, pairing programmers have to settle for either:&lt;/p&gt;
 

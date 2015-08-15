@@ -3,8 +3,18 @@
   
   <url>
     <loc>http://jesseszwedko.com/</loc>
-    <lastmod>2015-07-11T19:15:44-07:00</lastmod>
+    <lastmod>2015-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/circleci-cli/</loc>
+    <lastmod>2015-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/go-circleci/</loc>
+    <lastmod>2015-08-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
