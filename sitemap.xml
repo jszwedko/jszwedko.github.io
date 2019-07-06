@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>http://jesseszwedko.com/</loc>
-    <lastmod>2015-08-15T13:16:22-07:00</lastmod>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/aws/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/ec2-metadatafs/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/fuse/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/golang/</loc>
+    <lastmod>2016-02-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -13,8 +49,27 @@
   </url>
   
   <url>
-    <loc>http://jesseszwedko.com/project/go-circleci/</loc>
+    <loc>http://jesseszwedko.com/post/</loc>
+    <lastmod>2015-08-15T13:16:22-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/ansible/</loc>
+    <lastmod>2015-08-15T13:16:22-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/autoscaling/</loc>
+    <lastmod>2015-08-15T13:16:22-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/circleci/</loc>
     <lastmod>2015-08-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -23,8 +78,25 @@
   </url>
   
   <url>
+    <loc>http://jesseszwedko.com/tags/cli/</loc>
+    <lastmod>2015-08-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/project/go-circleci/</loc>
+    <lastmod>2015-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</loc>
     <lastmod>2015-07-11T19:15:44-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/git/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -38,13 +110,37 @@
   </url>
   
   <url>
+    <loc>http://jesseszwedko.com/tags/pairing/</loc>
+    <lastmod>2015-05-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jesseszwedko.com/talk/go-debugging/</loc>
     <lastmod>2014-07-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>http://jesseszwedko.com/talk/</loc>
+    <lastmod>2014-07-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/debugging/</loc>
+    <lastmod>2014-07-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jesseszwedko.com/talk/go-orms/</loc>
     <lastmod>2014-01-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/tags/orms/</loc>
+    <lastmod>2014-01-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -58,8 +154,20 @@
   </url>
   
   <url>
+    <loc>http://jesseszwedko.com/tags/continuous-delivery/</loc>
+    <lastmod>2012-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://jesseszwedko.com/publication/optimizing-energy/</loc>
     <lastmod>2011-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/publication/</loc>
+    <lastmod>2011-06-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -70,6 +178,11 @@
   <url>
     <loc>http://jesseszwedko.com/publication/demonstrating-evacuation/</loc>
     <lastmod>2009-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jesseszwedko.com/categories/</loc>
+    <priority>0</priority>
   </url>
   
 </urlset>

@@ -83,13 +83,13 @@
 </p>
 
 
-  <h6><a href="/post/"> Posts </a></h6>
+  <h6><a href="/post"> Posts </a></h6>
 
-  <h6><a href="/project/"> Projects </a></h6>
+  <h6><a href="/project"> Projects </a></h6>
 
-  <h6><a href="/talk/"> Talks </a></h6>
+  <h6><a href="/talk"> Talks </a></h6>
 
-  <h6><a href="/publication/"> Publications </a></h6>
+  <h6><a href="/publication"> Publications </a></h6>
 
 
       </header>
@@ -118,7 +118,7 @@
   <h1 class="post-title">Using Ansible to provision AWS autoscaling instances</h1>
   
 
-<h2 id="problem-statement:e8ac8ab4751f14b2c4a36b81bcb2af64">Problem statement:</h2>
+<h2 id="problem-statement">Problem statement:</h2>
 
 <p>If you are running your infrastructure on EC2 in AWS, you are probably using
 <a href="http://aws.amazon.com/autoscaling/">AWS&rsquo;s autoscaling service</a> to manage your
@@ -168,7 +168,7 @@ configuration elsewhere (like S3) and retrieve it in your user-data or bake it
 into your image (slow turn around time for changes), but below I&rsquo;ll describe
 another option that ended up working for us.</p>
 
-<h2 id="solution:e8ac8ab4751f14b2c4a36b81bcb2af64">Solution:</h2>
+<h2 id="solution">Solution:</h2>
 
 <p>Compress and base64 encode your Ansible configuration! It may seem like
 a simple idea, but it didn&rsquo;t immediately occur to us so I thought I would share

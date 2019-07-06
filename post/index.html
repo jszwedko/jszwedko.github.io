@@ -30,7 +30,7 @@
     
 
     
-      <link href="http://jesseszwedko.com/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts &middot; Jesse Szwedko" />
+    <link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts &middot; Jesse Szwedko" />
     
     <link rel="canonical" href="http://jesseszwedko.com/post/" />
 
@@ -62,13 +62,13 @@
 </p>
 
 
-  <h6><a href="/post/"> Posts </a></h6>
+  <h6><a href="/post"> Posts </a></h6>
 
-  <h6><a href="/project/"> Projects </a></h6>
+  <h6><a href="/project"> Projects </a></h6>
 
-  <h6><a href="/talk/"> Talks </a></h6>
+  <h6><a href="/talk"> Talks </a></h6>
 
-  <h6><a href="/publication/"> Publications </a></h6>
+  <h6><a href="/publication"> Publications </a></h6>
 
 
       </header>
@@ -85,9 +85,10 @@
 		<time datetime="2015-08-15T13:16:22-07:00">
       15 Aug 2015
     </time>
-    <p>As described in a previous post, at Braintree, we use Ansible as the user data in the launch configurations (LC) of our autoscaling groups (ASGs) to configure instances on boot via a bash script with a base64 encoded tarball of the playbook directory. While we find this is a very effective way to structure the configuration, testing new configuration can be time consuming as it requires a new LC to be created and attached to the ASG followed by cycling an instance in the ASG by terminating it so that a new one, with the new configuration, takes its place.</p>
-    <p><a href="/post/ansible-autoscaling-inventory/">Read More…</a></p>
-    <span class="taglist">
+  </h3>
+  <p>As described in a previous post, at Braintree, we use Ansible as the user data in the launch configurations (LC) of our autoscaling groups (ASGs) to configure instances on boot via a bash script with a base64 encoded tarball of the playbook directory. While we find this is a very effective way to structure the configuration, testing new configuration can be time consuming as it requires a new LC to be created and attached to the ASG followed by cycling an instance in the ASG by terminating it so that a new one, with the new configuration, takes its place.</p>
+  <p><a href="/post/ansible-autoscaling-inventory/">Read More…</a></p>
+  <span class="taglist">
   
     &middot;
     
@@ -100,7 +101,6 @@
   
 </span>
 
-	</h3>
 </section>
 
   
@@ -111,9 +111,10 @@
 		<time datetime="2015-07-11T19:15:44-07:00">
       11 Jul 2015
     </time>
-    <p>Problem statement: If you are running your infrastructure on EC2 in AWS, you are probably using AWS&rsquo;s autoscaling service to manage your instances. If you are not, you should be. Even if you don&rsquo;t plan to have your instances scale up and down based on traffic patterns, you&rsquo;ll want to use autoscaling for the simple case of keeping a certain number of instances running if one of them stops responding or is decommissioned by AWS &ndash; without requiring manual intervention by an engineer to spin up and configure a new server.</p>
-    <p><a href="/post/ansible-aws-launch-configuration/">Read More…</a></p>
-    <span class="taglist">
+  </h3>
+  <p>Problem statement: If you are running your infrastructure on EC2 in AWS, you are probably using AWS&rsquo;s autoscaling service to manage your instances. If you are not, you should be. Even if you don&rsquo;t plan to have your instances scale up and down based on traffic patterns, you&rsquo;ll want to use autoscaling for the simple case of keeping a certain number of instances running if one of them stops responding or is decommissioned by AWS &ndash; without requiring manual intervention by an engineer to spin up and configure a new server.</p>
+  <p><a href="/post/ansible-aws-launch-configuration/">Read More…</a></p>
+  <span class="taglist">
   
     &middot;
     
@@ -126,7 +127,6 @@
   
 </span>
 
-	</h3>
 </section>
 
   
@@ -137,9 +137,12 @@
 		<time datetime="2015-05-30T00:00:00Z">
       30 May 2015
     </time>
-    <p>Today marks the release of the Go port of git-duet! git-duet allows paired programmers to not lose their identities when collaborating on git commits. See the project page for more details.</p>
-    
-    <span class="taglist">
+  </h3>
+  <p>Today marks the release of the Go port of git-duet!
+git-duet allows paired programmers to not lose their identities when collaborating on git commits.
+See the project page for more details.</p>
+  
+  <span class="taglist">
   
     &middot;
     
@@ -148,7 +151,6 @@
   
 </span>
 
-	</h3>
 </section>
 
   

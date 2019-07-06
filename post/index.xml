@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 15 Aug 2015 13:16:22 -0700</lastBuildDate>
-    <atom:link href="http://jesseszwedko.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://jesseszwedko.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>AWS Autoscaling Ansible Inventory</title>
@@ -15,132 +17,7 @@
       <pubDate>Sat, 15 Aug 2015 13:16:22 -0700</pubDate>
       
       <guid>http://jesseszwedko.com/post/ansible-autoscaling-inventory/</guid>
-      <description>&lt;p&gt;As described in a &lt;a href=&#34;http://jesseszwedko.com/post/ansible-aws-launch-configuration/&#34;&gt;previous post&lt;/a&gt;, at
-&lt;a href=&#34;http://braintreepayments.com/&#34;&gt;Braintree&lt;/a&gt;, we use Ansible as the &lt;a href=&#34;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html&#34;&gt;user
-data&lt;/a&gt; in the
-launch configurations (LC) of our autoscaling groups (ASGs) to configure
-instances on boot via a bash script with a base64 encoded tarball of the
-playbook directory. While we find this is a very effective way to structure the
-configuration, testing new configuration can be time consuming as it requires a
-new LC to be created and attached to the ASG followed by cycling an instance in
-the ASG by terminating it so that a new one, with the new configuration, takes
-its place.&lt;/p&gt;
-
-&lt;p&gt;However, another advantage of using Ansible for configuration is that we can
-run the configuration locally and target the instances that are part of the ASG
-(you&amp;rsquo;d want to use a non-production ASG, of course) to test new configuration
-iteratively.  To do this, we need to create an inventory of these instances so
-that Ansible knows which to run the configuration against.  Luckily, Ansible
-allows you to write &lt;a href=&#34;http://docs.ansible.com/ansible/intro_dynamic_inventory.html&#34;&gt;dynamic
-inventories&lt;/a&gt; that
-are actually executables that will be run by Ansible to generate the inventory.&lt;/p&gt;
-
-&lt;p&gt;Here is an adaptation of the inventory script that we use (with Braintree
-specific variables and other noise removed):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#! /usr/bin/env python
-
-import argparse
-import boto.ec2.autoscale
-import json
-import os
-import sys
-
-def get_tag(tags, key):
-    for tag in tags:
-        if tag.key == key:
-            return tag.value
-
-    return None
-
-region = os.environ.get(&#39;AWS_REGION&#39;, None)
-if region is None:
-    print &amp;quot;$AWS_REGION must be set&amp;quot;
-    sys.exit(1)
-
-parser = argparse.ArgumentParser(description=&#39;Dynamic inventory for autoscaling groups&#39;)
-parser.add_argument(&#39;--list&#39;, help=&amp;quot;list hosts&amp;quot;, action=&amp;quot;store_true&amp;quot;)
-parser.add_argument(&#39;--host&#39;, help=&amp;quot;list host vars&amp;quot;)
-args = parser.parse_args()
-
-if args.host:
-  print &amp;quot;{}&amp;quot;
-
-if not args.list:
-  sys.exit(1)
-
-autoscale = boto.ec2.autoscale.connect_to_region(region)
-ec2 = boto.ec2.connect_to_region(region)
-
-inventory = {&amp;quot;_meta&amp;quot;: {&amp;quot;hostvars&amp;quot;: {}}}
-for autoscaling_group in autoscale.get_all_groups():
-  instance_ids = [i.instance_id for i in autoscaling_group.instances]
-  instance_dns_names = [i.public_dns_name for r in ec2.get_all_instances(instance_ids) for i in r.instances]
-  name = get_tag(autoscaling_group.tags, &#39;Name&#39;)
-  if name not in inventory:
-      inventory[name] = { &amp;quot;hosts&amp;quot;: [] }
-  inventory[name][&#39;hosts&#39;] += instance_dns_names
-
-print json.dumps(inventory)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This script will pull all of the ASGs in your region and return their instances
-grouped by the &lt;code&gt;Name&lt;/code&gt; tag on the autoscaling group. There exists a more full
-featured &lt;a href=&#34;https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py&#34;&gt;ec2
-inventory&lt;/a&gt;
-script, but we found this didn&amp;rsquo;t work for our use cases because it doesn&amp;rsquo;t
-handle grouping instances by autoscaling groups.&lt;/p&gt;
-
-&lt;p&gt;The use of &lt;code&gt;boto&lt;/code&gt; allows us to easily take AWS credentials from all of the
-typical places (&lt;code&gt;~/.aws/credentials&lt;/code&gt;, environment variables, and instance IAM
-roles).&lt;/p&gt;
-
-&lt;p&gt;Example output of &lt;code&gt;AWS_REGION=us-east-1 ./asg-inventory --list | jq .&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;haproxy&amp;quot;: {
-    &amp;quot;hosts&amp;quot;: [
-      &amp;quot;ec2-55-1-114-78.us-west-1.compute.amazonaws.com&amp;quot;,
-      &amp;quot;ec2-51-9-184-33.us-west-1.compute.amazonaws.com&amp;quot;
-    ]
-  },
-  &amp;quot;_meta&amp;quot;: {
-    &amp;quot;hostvars&amp;quot;: {}
-  },
-  &amp;quot;web_servers&amp;quot;: {
-    &amp;quot;hosts&amp;quot;: [
-      &amp;quot;ec2-59-68-77-112.us-west-1.compute.amazonaws.com&amp;quot;,
-      &amp;quot;ec2-52-151-19-125.us-west-1.compute.amazonaws.com&amp;quot;
-    ]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In your playbook, it is a good idea to expose the target hosts as a variable,
-e.g.:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yml&#34;&gt;---
-- hosts: &amp;quot;{{ target }}&amp;quot;
-  vars:
-    target: 127.0.0.1
-  tasks:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So that you now can then do something like: &lt;code&gt;AWS_REGION=us-east-1
-ansible-playbook -i ./asg-inventory /path/to/playbook.yml -e target=haproxy&lt;/code&gt; to
-run your local playbook against the remote instances in the &lt;code&gt;haproxy&lt;/code&gt;
-autoscaling group as you make changes locally.&lt;/p&gt;
-
-&lt;p&gt;Once you are satisfied with your configuration, I still recommend going through
-the process of updating the LC with your gzipped Ansible configuration (again
-see my &lt;a href=&#34;http://jesseszwedko.com/post/ansible-aws-launch-configuration/&#34;&gt;previous post&lt;/a&gt; for a way to do this) and
-spinning a fresh instance up in your ASG to ensure that your configuration
-works when ran from scratch. I&amp;rsquo;ve often been bit by configuration that worked
-while I was iteratively adding to it and mutating state where it did not work
-on a fresh instance.&lt;/p&gt;
-
-&lt;p&gt;Happy Ansibling!&lt;/p&gt;
-</description>
+      <description>As described in a previous post, at Braintree, we use Ansible as the user data in the launch configurations (LC) of our autoscaling groups (ASGs) to configure instances on boot via a bash script with a base64 encoded tarball of the playbook directory. While we find this is a very effective way to structure the configuration, testing new configuration can be time consuming as it requires a new LC to be created and attached to the ASG followed by cycling an instance in the ASG by terminating it so that a new one, with the new configuration, takes its place.</description>
     </item>
     
     <item>
@@ -149,111 +26,7 @@ on a fresh instance.&lt;/p&gt;
       <pubDate>Sat, 11 Jul 2015 19:15:44 -0700</pubDate>
       
       <guid>http://jesseszwedko.com/post/ansible-aws-launch-configuration/</guid>
-      <description>
-
-&lt;h2 id=&#34;problem-statement:e8ac8ab4751f14b2c4a36b81bcb2af64&#34;&gt;Problem statement:&lt;/h2&gt;
-
-&lt;p&gt;If you are running your infrastructure on EC2 in AWS, you are probably using
-&lt;a href=&#34;http://aws.amazon.com/autoscaling/&#34;&gt;AWS&amp;rsquo;s autoscaling service&lt;/a&gt; to manage your
-instances. If you are not, you should be. Even if you don&amp;rsquo;t plan to have your
-instances scale up and down based on traffic patterns, you&amp;rsquo;ll want to use
-autoscaling for the simple case of keeping a certain number of instances
-running if one of them stops responding or is decommissioned by AWS &amp;ndash; without
-requiring manual intervention by an engineer to spin up and configure a new
-server.&lt;/p&gt;
-
-&lt;p&gt;The tricky bit is making sure that the new instances that are created are
-configured properly for their purpose. For Cassandra, for example, this might
-mean pointing the configuration at the seed nodes for your cluster. For a web
-server this may mean configuring which database to point to and credentials for
-connecting. Either way it is rare that your server will need no configuration
-at launch time to operate properly (even though you should attempt to embed as
-much configuration as possible into your AMIs). AWS&amp;rsquo;s solution for this is
-user-data, a script (or cloud-init file) that is executed on first boot.&lt;/p&gt;
-
-&lt;p&gt;The simplest thing you can do is provide a bash script, e.g.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/bash
-
-aws ec2 describe-instances \
-  --filters &amp;quot;Name=tag:Database,Values=true&amp;quot; \
-  --query &#39;Reservations[*].Instances[*].PrivateDnsName&#39; \
-  --output text \
-  &amp;gt; /etc/databases
-
-systemctl start my-webservice
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is a contrived example, but I hope it is illustrative.&lt;/p&gt;
-
-&lt;p&gt;At Braintree, as our user-data became more complex (things like configuring
-firewall rules, setting up certificates and configuring services like
-exhibitor), we made the decision to migrate from bash scripts to
-&lt;a href=&#34;http://www.ansible.com/home&#34;&gt;Ansible&lt;/a&gt; configuration to better organize it and
-take advantage of &lt;a href=&#34;http://jinja.pocoo.org/docs/dev/&#34;&gt;jinja2&lt;/a&gt; templating.&lt;/p&gt;
-
-&lt;p&gt;If you are familiar with Ansible, you can probably guess that the difficulty
-with using Ansible as user-data is that Ansible configuration typically
-consists of a playbook and all of its supporting assets (templates, static
-files, roles, etc.) which doesn&amp;rsquo;t neatly fit into a single file (AWS also
-limits user-data to 16 KB) so it may seem like your only option is to store the
-configuration elsewhere (like S3) and retrieve it in your user-data or bake it
-into your image (slow turn around time for changes), but below I&amp;rsquo;ll describe
-another option that ended up working for us.&lt;/p&gt;
-
-&lt;h2 id=&#34;solution:e8ac8ab4751f14b2c4a36b81bcb2af64&#34;&gt;Solution:&lt;/h2&gt;
-
-&lt;p&gt;Compress and base64 encode your Ansible configuration! It may seem like
-a simple idea, but it didn&amp;rsquo;t immediately occur to us so I thought I would share
-it here. I also think this technique could be used for other standalone
-configuration management tools like
-&lt;a href=&#34;https://docs.chef.io/chef_solo.html&#34;&gt;&lt;code&gt;chef-solo&lt;/code&gt;&lt;/a&gt; or even just modularized
-bash scripts.&lt;/p&gt;
-
-&lt;p&gt;We use Terraform to manage our infrastructure, so we have this compression and
-base64 encoding happen as a preprocessing step when planning (using a wrapper
-script around &lt;code&gt;terraform plan&lt;/code&gt;) that is used by our launch configuration
-resources, but you could fit it into your workflow however works best.&lt;/p&gt;
-
-&lt;p&gt;Example script you can use to automate creation of the user-data script:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;#! /bin/sh
-
-ansible_configuration=$1
-shift
-
-cat &amp;lt;&amp;lt;-EOF
-#! /bin/bash
-
-set -o errexit
-
-mkdir -p /tmp/ansible
-echo &#39;$(tar c -C &amp;quot;$ansible_configuration&amp;quot; . | gzip -n | base64 -w 0)&#39; | base64 -d | tar xz -C /tmp/ansible
-cd /tmp/ansible
-EOF
-
-echo -n &#39;/usr/local/bin/ansible-playbook playbook.yml --connection=local -i localhost, -e target=localhost&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note that this script assumes that you have a variable called &lt;code&gt;target&lt;/code&gt; that you
-use for your &lt;code&gt;hosts&lt;/code&gt; declaration in your playbook.&lt;/p&gt;
-
-&lt;p&gt;Example of generated user-data (base64 encoded directory shortened for brevity):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#! /bin/bash
-
-set -o errexit
-
-mkdir -p /tmp/ansible
-echo &#39;H4sIAAAAAAAAA+w9aXPbRpb+[...]+CV+qgxijv8ggqkPOrhZngzP99N/Tv0z+6bZbGw3u9QXa2v1ovOfw0nfP/yPxjlBAKBQCAQCAQCgUAgEAgEAoHg+eEnXr53cwCgAAA=&#39; | base64 -d | tar xz -C /tmp/ansible
-cd /tmp/ansible
-/usr/local/bin/ansible-playbook playbook.yml --connection=local -i localhost, -e target=localhost
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is what you would use for the user-data in your launch configuration
-whereby, on launch, the encoded Ansible configuration is decoded, written
-out to &lt;code&gt;/tmp/ansible&lt;/code&gt;, and &lt;code&gt;ansible-playbook&lt;/code&gt; executed.&lt;/p&gt;
-</description>
+      <description>Problem statement: If you are running your infrastructure on EC2 in AWS, you are probably using AWS&amp;rsquo;s autoscaling service to manage your instances. If you are not, you should be. Even if you don&amp;rsquo;t plan to have your instances scale up and down based on traffic patterns, you&amp;rsquo;ll want to use autoscaling for the simple case of keeping a certain number of instances running if one of them stops responding or is decommissioned by AWS &amp;ndash; without requiring manual intervention by an engineer to spin up and configure a new server.</description>
     </item>
     
     <item>
@@ -262,14 +35,9 @@ out to &lt;code&gt;/tmp/ansible&lt;/code&gt;, and &lt;code&gt;ansible-playbook&l
       <pubDate>Sat, 30 May 2015 00:00:00 +0000</pubDate>
       
       <guid>http://jesseszwedko.com/post/git-duet-release/</guid>
-      <description>&lt;p&gt;Today marks the release of the Go port of &lt;code&gt;git-duet&lt;/code&gt;!&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;git-duet&lt;/code&gt; allows paired programmers to not lose their identities when
-collaborating on &lt;code&gt;git&lt;/code&gt; commits.&lt;/p&gt;
-
-&lt;p&gt;See the &lt;a href=&#34;http://jesseszwedko.com/project/git-duet/&#34;&gt;project page&lt;/a&gt; for
-more details.&lt;/p&gt;
-</description>
+      <description>Today marks the release of the Go port of git-duet!
+git-duet allows paired programmers to not lose their identities when collaborating on git commits.
+See the project page for more details.</description>
     </item>
     
   </channel>
